@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3354f409-53e8-4b3e-9f9c-9de139cd35b8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views/account_management.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views/account_management.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/snippet/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/snippet/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/snippet/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/snippet/urls.py" afterDir="false" />
     </list>
