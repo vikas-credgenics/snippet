@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'reward_wallet.apps.RewardWalletConfig',
     'common.apps.CommonConfig',
     'user.apps.UserConfig',
+    'payments.apps.PaymentsConfig',
     'rest_framework',
     'rest_framework.authtoken',
 ]

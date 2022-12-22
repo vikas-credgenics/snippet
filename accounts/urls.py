@@ -3,5 +3,5 @@ from .views.account_management import AccountManagement
 
 
 urlpatterns = [
-    path('account_management', AccountManagement.as_view())
+    path('', AccountManagement.as_view())
 ]
