@@ -9,3 +9,5 @@ class Accounts(models.Model):
     account_id = models.CharField(max_length=255)
     provider_name = models.CharField(max_length=255)
     active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)

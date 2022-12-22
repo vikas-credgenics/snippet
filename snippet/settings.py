@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
+    'reward_wallet.apps.RewardWalletConfig',
     'common.apps.CommonConfig',
     'user.apps.UserConfig',
     'rest_framework',
