@@ -1,20 +1,3 @@
-# from django.shortcuts import render
-# from rest_framework.views import APIView
-# from rest_framework import status
-# from rest_framework.response import Response
-
-# # Create your views here.
-
-# class LoginAPIView(APIView):
-# 	def get(self, request, format=None):
-# 		data = {
-# 			'first_name': 'Vikas',
-# 			'last_name': 'Shil'
-# 		}
-# 		return Response(data, status=status.HTTP_200_OK)
-
-
-
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.models import User
 from django.utils import timezone
