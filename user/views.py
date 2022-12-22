@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions
 
 # from accounts.events import UserChangePassword
-from accounts.serializers import LoginSerializer, RegisterSerializer
+from user.serializers import LoginSerializer, RegisterSerializer
 
 
 class Register(generics.CreateAPIView):
@@ -125,3 +125,6 @@ class Logout(APIView):
         except Exception as e:
             print (e)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+from django.shortcuts import render
+
+# Create your views here.
