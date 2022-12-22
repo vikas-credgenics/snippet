@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from user.models import Document
 
-from accounts.models import Accounts
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255)
@@ -38,3 +38,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         else:
             return value
 
+
+class DocumentSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Document
+        fields = ('id', 'document', 'document_type')

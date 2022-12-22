@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.authtoken.models import Token
+from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
 
+from user.models import Document
 # from accounts.events import UserChangePassword
-from user.serializers import LoginSerializer, RegisterSerializer
+from user.serializers import LoginSerializer, RegisterSerializer, DocumentSerializer
 
 
 class Register(generics.CreateAPIView):
@@ -125,6 +127,27 @@ class Logout(APIView):
         except Exception as e:
             print (e)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-from django.shortcuts import render
 
-# Create your views here.
+
+class DocumentView(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    model = Document
+    serializer_class = DocumentSerializer
+
+    def get_queryset(self):
+        return self.model.objects.filter(owner=self.request.user)
+
+    # def get(self, request, format=None):
+    #     documents = Document.objects.filter(owner=request.user)
+    #     serializer = DocumentSerializer(documents, many=True)
+    #     return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(owner=request.user)
+            serializer.save()
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
