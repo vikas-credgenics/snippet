@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+
+from accounts.models import Accounts
 # from rest_framework.compat import MinLengthValidator
 
 
@@ -39,13 +41,9 @@ class RegisterSerializer(serializers.ModelSerializer):
             return value
 
 
-# class PasswordChangeSerializer(serializers.Serializer):
-#     old_password = serializers.CharField()
-#     new_password = serializers.CharField(validators=[MinLengthValidator(6)])
+class AccountsSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
 
-#     def validate(self, attrs):
-#         old_password = attrs['old_password']
-#         new_password = attrs['new_password']
-#         if old_password == new_password:
-#             raise serializers.ValidationError('old and new password are same')
-#         return attrs
+    class Meta:
+        model = Accounts
+        fields = ("id", 'account_type', 'account_category', 'account_id', 'provider_name')
