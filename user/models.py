@@ -13,7 +13,7 @@ def random_with_N_digits(n):
 def document_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = 'user_id_' + str(instance.owner.id) + '_' + str(random_with_N_digits(4)) + '.' + ext
-    return '/'.join(['user/documents', str(instance.owner.id), filename])
+    return '/'.join(['user/document', str(instance.owner.id), filename])
 
 
 class Document(models.Model):

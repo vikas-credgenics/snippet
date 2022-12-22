@@ -134,13 +134,13 @@ class DocumentView(generics.ListCreateAPIView):
     model = Document
     serializer_class = DocumentSerializer
 
-    def get_queryset(self):
-        return self.model.objects.filter(owner=self.request.user)
+    # def get_queryset(self):
+    #     return self.model.objects.filter(owner=self.request.user)
 
-    # def get(self, request, format=None):
-    #     documents = Document.objects.filter(owner=request.user)
-    #     serializer = DocumentSerializer(documents, many=True)
-    #     return Response(serializer.data)
+    def get(self, request, format=None):
+        documents = Document.objects.filter(owner=request.user)
+        serializer = DocumentSerializer(documents, many=True)
+        return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
