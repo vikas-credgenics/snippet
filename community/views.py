@@ -35,8 +35,16 @@ class VendorDetail(APIView):
         vendor = self.get_object(pk)
         serializer = self.serializer_class(vendor)
         serializer_data = dict(serializer.data)
-        serializer_data['overall_rating'] = Testimonial.objects.filter(
+        serializer_data['overall_rating_avg'] = Testimonial.objects.filter(
             vendor_id=pk).aggregate(Avg('overall_rating')).get('overall_rating__avg')
+        serializer_data['response_time_rating_avg'] = Testimonial.objects.filter(
+            vendor_id=pk).aggregate(Avg('response_time_rating')).get('response_time_rating__avg')
+        serializer_data['service_rating_avg'] = Testimonial.objects.filter(
+            vendor_id=pk).aggregate(Avg('service_rating')).get('service_rating__avg')
+        serializer_data['digitisation_rating_avg'] = Testimonial.objects.filter(
+            vendor_id=pk).aggregate(Avg('digitisation_rating')).get('digitisation_rating__avg')
+        serializer_data['customer_support_rating_avg'] = Testimonial.objects.filter(
+            vendor_id=pk).aggregate(Avg('customer_support_rating')).get('customer_support_rating__avg')
         return Response(serializer_data, status=status.HTTP_200_OK)
 
 
