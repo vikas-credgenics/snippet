@@ -24,6 +24,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('reward/', include('reward_wallet.urls')),
     path('payments/', include('payments.urls')),
+    path('community/', include('community.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

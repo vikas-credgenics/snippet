@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'user.apps.UserConfig',
     'payments.apps.PaymentsConfig',
+    'community.apps.CommunityConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
