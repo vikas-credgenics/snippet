@@ -6,22 +6,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from payments.models import BBPSRepaymentSchedule
-from payments.serializers import GetOutstandingAmountSerializer, GetForeclosureAmountSerializer, \
-    GetPrincipalOutstandingAmountSerializer, BBPSPaymentStatusSerializer, GetBBPSDuePaymentSerializer
+from payments.serializers import GetAmountSerializer, BBPSPaymentStatusSerializer, GetBBPSDuePaymentSerializer
 from accounts.models import Accounts
 
 
-class OutstandingView(APIView):
-    """
-        Outstanding Amount
-    """
-
+class GetLoanAmount(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
-        serializer = GetOutstandingAmountSerializer(data=request.query_params)
+        serializer = GetAmountSerializer(data=request.query_params)
         if not serializer.is_valid():
-            print(serializer.errors)
             return Response(
                 {
                     "message": "Bad request"
@@ -29,68 +23,13 @@ class OutstandingView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         valid_data = serializer.validated_data
-        entry = BBPSRepaymentSchedule.objects.filter(account_id=valid_data["account_id"], year=valid_data["year"],
-                                                     month=valid_data["month"]).first()
+        entry = BBPSRepaymentSchedule.objects.filter(account_id=valid_data["account_id"], status="DUE").first()
+        if not entry:
+            return Response({}, status.HTTP_200_OK)
         return Response(
             {
                 "outstanding_amount": entry.outstanding_amount,
-                "status": entry.status
-            },
-            status=status.HTTP_200_OK
-        )
-
-
-class PrincipalOutstandingView(APIView):
-    """
-        Principal Outstanding Amount
-    """
-
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request, format=None):
-        serializer = GetPrincipalOutstandingAmountSerializer(data=request.query_params)
-        if not serializer.is_valid():
-            print(serializer.errors)
-            return Response(
-                {
-                    "message": "Bad request"
-                },
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        valid_data = serializer.validated_data
-        entry = BBPSRepaymentSchedule.objects.filter(account_id=valid_data["account_id"], year=valid_data["year"],
-                                                     month=valid_data["month"]).first()
-        return Response(
-            {
                 "principal_outstanding_amount": entry.principal_outstanding_amount,
-                "status": entry.status
-            },
-            status=status.HTTP_200_OK
-        )
-
-
-class ForeclosureAmountView(APIView):
-    """
-        Principal Outstanding Amount
-    """
-
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request, format=None):
-        serializer = GetForeclosureAmountSerializer(data=request.query_params)
-        if not serializer.is_valid():
-            print(serializer.errors)
-            return Response(
-                {
-                    "message": "Bad request"
-                },
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        valid_data = serializer.validated_data
-        entry = BBPSRepaymentSchedule.objects.filter(account_id=valid_data["account_id"], year=valid_data["year"],
-                                                     month=valid_data["month"]).first()
-        return Response(
-            {
                 "foreclosure_amount": entry.foreclosure_amount,
                 "status": entry.status
             },
@@ -149,6 +88,11 @@ class BBPSPaymentView(APIView):
             )
         valid_data = serializer.validated_data
         entry = BBPSRepaymentSchedule.objects.filter(account_id=valid_data["account_id"], status="DUE").first()
+        if not entry:
+            return Response(
+                {"message": "No due payment"},
+                status=status.HTTP_200_OK
+            )
         return Response(
             model_to_dict(entry),
             status=status.HTTP_200_OK

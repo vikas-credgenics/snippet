@@ -28,16 +28,20 @@ class RewardWalletLoadSerializer(serializers.Serializer):
 
 class RewardBalanceSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
+    user_id = serializers.CharField(source="user.id", read_only=True)
+    user_name = serializers.CharField(source="user.username", read_only=True)
 
     class Meta:
         model = RewardWalletSummary
-        fields = ("user", "balance", "id")
+        fields = ("user_id", "user_name", "balance", "id")
 
 
 class RewardTransactionSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
+    user_id = serializers.CharField(source="user.id", read_only=True)
+    user_name = serializers.CharField(source="user.username", read_only=True)
 
     class Meta:
         model = RewardTransactionDetails
-        fields = ("id", "user", "rule", "txn_type", "conversion_factor", "reference_field", "amount", "points",
+        fields = ("id", "user_id", "user_name", "rule", "txn_type", "conversion_factor", "reference_field", "amount", "points",
                   "remarks", "created", "updated")
