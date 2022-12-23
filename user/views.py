@@ -151,3 +151,21 @@ class DocumentView(generics.ListCreateAPIView):
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        documents_count = Document.objects.filter(owner=request.user).count()
+        profile_completion = documents_count * 10
+
+        data = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'profile_completion': 100 if profile_completion >= 100 else profile_completion
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
+
