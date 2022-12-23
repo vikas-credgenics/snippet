@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions, status
-from reward_wallet.models import RewardWalletSummary, RewardRules
+from reward_wallet.models import RewardWalletSummary, RewardRules, RewardTransactionDetails
 from reward_wallet.serializers import RewardWalletEarnSerializer, RewardBalanceSerializer, RewardTransactionSerializer, \
     RewardWalletBurnSerializer, RewardWalletLoadSerializer
 
@@ -16,6 +16,16 @@ class RewardWalletBalance(APIView):
     def get(self, request):
         accounts = RewardWalletSummary.objects.filter(user=request.user).first()
         serializer = RewardBalanceSerializer(accounts)
+        return Response(serializer.data)
+
+
+class RewardWalletTransaction(APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        transactions = RewardTransactionDetails.objects.filter(user=request.user).order_by('created')
+        serializer = RewardTransactionSerializer(transactions, many=True)
         return Response(serializer.data)
 
 

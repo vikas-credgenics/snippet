@@ -21,9 +21,11 @@ class GetForeclosureAmountSerializer(serializers.Serializer):
 
 class BBPSPaymentStatusSerializer(serializers.Serializer):
     amount = serializers.FloatField()
+    points = serializers.FloatField(required=False)
+    lender_id = serializers.IntegerField()
     account_id = serializers.IntegerField()
-    month = serializers.CharField(max_length=2)
-    year = serializers.CharField(max_length=4)
+    # month = serializers.CharField(max_length=2)
+    # year = serializers.CharField(max_length=4)
 
 
 class GetBBPSDuePaymentSerializer(serializers.Serializer):

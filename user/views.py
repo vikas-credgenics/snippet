@@ -73,7 +73,7 @@ class Login(generics.GenericAPIView):
         if serializer.is_valid():
             user = authenticate(username=serializer.data['username'],
                                 password=serializer.data['password'])
-            print (user)
+
             if user and user.is_authenticated:
                 if user.is_active:
                     # login(request, user)
@@ -125,7 +125,7 @@ class Logout(APIView):
             return Response({'success': 'Successfully logged out.'},
                             status=status.HTTP_200_OK)
         except Exception as e:
-            print (e)
+            print(e)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -167,5 +167,3 @@ class ProfileView(APIView):
         }
 
         return Response(data, status=status.HTTP_200_OK)
-
-
