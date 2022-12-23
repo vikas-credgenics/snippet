@@ -28,4 +28,3 @@ class Migration(migrations.Migration):
     dependencies = [
         ("reward_wallet", "0001_initial"),
     ]
-

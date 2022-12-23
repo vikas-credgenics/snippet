@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'reward_wallet.apps.RewardWalletConfig',
-    'common.apps.CommonConfig',
     'user.apps.UserConfig',
     'payments.apps.PaymentsConfig',
     'community.apps.CommunityConfig',

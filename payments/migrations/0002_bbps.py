@@ -52,5 +52,5 @@ class Migration(migrations.Migration):
         migrations.RunPython(gen_rules),
     ]
     dependencies = [
-        ("payments", "0002_remove_bbpsrepaymentschedule_loan_id_and_more"),
+        ("payments", "0001_initial"),
     ]
