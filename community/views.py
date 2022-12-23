@@ -26,9 +26,11 @@ class VendorDetail(generics.RetrieveUpdateAPIView):
 
 class TestimonialView(APIView):
     # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
+    model = Testimonial
+    serializer_class = TestimonialSerializer
 
     def get(self, request, pk):
-        import pdb;pdb.set_trace()
         testimonials = Testimonial.objects.filter(vendor_id=pk)
         serializer = TestimonialSerializer(testimonials, many=True)
         return Response(serializer.data)
@@ -37,6 +39,6 @@ class TestimonialView(APIView):
         serializer = TestimonialSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            serializer.save(user=request.user, vendor=Vendor.objects.get(id=pk))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
